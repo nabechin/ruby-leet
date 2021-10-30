@@ -1,18 +1,21 @@
 def search_insert(nums, target)
-    is_lower = false
-    is_higher = false
-    nums.each_with_index do |item, index|
-        if item == target
-            return index
-        end
-        if is_lower && is_higher
-            return index
-        end
-        if item < target
-            is_higher = true
-        end
-        if item > target
-            is_lower = true
+    left = 0
+    right = nums.length - 1
+    if target < nums[left]
+        return 0
+    end
+    if target > nums[right]
+        return right + 1
+    end
+    while left <= right do
+        mid = ((left + right)/2).floor
+        if nums[mid] == target
+            return mid
+        elsif target < nums[mid]
+            right = mid - 1
+        else
+            left = mid + 1
         end
     end
+    return left
 end
